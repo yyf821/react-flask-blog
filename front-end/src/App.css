@@ -1,0 +1,17 @@
+@import '~antd/dist/antd.css';
+
+.site-layout-content {
+    background: #fff;
+    padding: 24px;
+    min-height: 280px;
+    margin: 16px 50px;
+}
+
+.center{
+    text-align: center;
+}
+
+.top-menu{
+display: flex;
+justify-content: space-between;
+}

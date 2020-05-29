@@ -1,0 +1,357 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background: #eee;
+}
+
+h1, h2, h3, h4, h5{
+    margin: 0 0 0.5em;
+    font-weight: 400;
+}
+
+p{
+    margin: 0 0 0.5em;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	background-color: #3498db;
+    padding: 1em;
+    color: #fff;
+    position: relative;
+}
+
+header h1{
+    font-weight: 100;
+    display: inline;
+    margin: 0;
+}
+
+header a{
+    color: #fff;
+}
+
+.login-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #3498db;
+}
+
+.login-html {
+    border-radius: 10px;
+    background: #fff;
+    padding: 30px;
+    width: 300px;
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+}
+
+.tag-list {
+    /*font-size: 0;*/
+    letter-spacing: -5px;
+    margin-bottom: 20px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.5em 1em;
+    /*font-size: 14px;*/
+    letter-spacing: normal;
+    cursor: pointer;
+    /* 去掉 li 标签的特殊前缀 */
+    list-style-type: none;
+    color: #ccc;
+    transition: color 0.3s;
+}
+
+.show {
+    display: block !important;
+}
+
+.tag-content {
+    display: none;
+}
+
+.active {
+    color: #000;
+    border-bottom: 2px solid #3498db;
+}
+
+.login-form .group {
+    margin-bottom: 15px;
+}
+
+.login-form .group .label,
+.login-form .group .btn {
+    text-transform: uppercase;
+}
+
+.login-form .group .label {
+    color: #aaa;
+    font-size: 12px;
+    display: block;
+    margin: 0 0 5px;
+}
+
+.login-form .group input[type=text],
+.login-form .group input[type=password],
+.login-form .group input[type=submit] {
+    width: 100%;
+    padding: 0.5em 1em;
+}
+
+#input-textarea{
+    height: 12em;
+}
+      
+hr {
+    background: #dedede;
+    border: 0;
+    height: 1px;
+    margin: 0.5em 0;
+}
+
+textarea {
+    height: 100px;
+    padding: 10px;
+    font: 1em sans-serif;
+    border-radius: 2px;
+    width: 100%;
+    outline: none;
+
+}
+
+.wrap {
+    width: 950px;
+    margin: 25px auto;
+}
+
+.page{
+    background-color: #fff;
+    padding: 25px;
+}
+
+.page a{
+    color: #3498db;
+}
+
+.btn {
+    padding: 0.5em 1em;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #3498db;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color .3s;
+}
+
+.btn:hover {
+    background-color: #fff;
+    color: #3498db;
+    border: 1px solid #3498db;
+}
+
+.pagination{
+    padding: 30px 0;
+    text-align: center;
+}
+
+.pagination-button{
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 18px;
+    color: #333;
+    transition: background-color .3s;
+}
+
+.pagination-button:hover{
+    background-color: #ddd;
+}
+.sidebar {
+    width: 275px;
+    float: right;
+}
+
+.sidebar .profile-card {
+    margin: 0 0 25px;
+    padding: 25px;
+    background: #fff;
+    transition: all 0.5s ease;
+    border-bottom: 2px solid #fff;
+    text-align: center;
+}
+
+.sidebar .profile-card:hover {
+    border-bottom: 2px solid #3498db;
+}
+
+.sidebar .profile-card h2 {
+    margin: 0 0 15px;
+    padding: 0;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 800;
+    color: #3498db;
+}
+
+.sidebar .profile-card p {
+    font-size: 14px;
+}
+
+.sidebar .profile-card p:last-child {
+    margin: 0;
+}
+
+.blog {
+    float: left;
+}
+
+.blog-article,
+.comments {
+    width: 600px;
+    margin: 0px auto;
+    padding: 25px;
+    background: #fff;
+}
+
+.shadow{
+    border: 1px solid #dedede;
+    -webkit-box-shadow: 1px 1px 1px 0px rgba(204, 204, 204, 0.35);
+    -moz-box-shadow: 1px 1px 1px 0px rgba(204, 204, 204, 0.35);
+    box-shadow: 1px 1px 1px 0px rgba(204, 204, 204, 0.35);
+}
+
+.comments {
+    margin: 25px auto;
+}
+
+.comment-item {
+    margin: 10px 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+.comment-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.blog-article h1 {
+    margin: 0 0 15px;
+    padding: 0;
+    font-family: Georgia;
+    font-weight: normal;
+    color: #666;
+}
+
+.blog-article p {
+    white-space: pre-wrap;
+}
+
+.post-info {
+    text-align: right;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.delete,.edit{
+    color: #3498db;
+    cursor: pointer;
+}
+
+.blog-list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+.blog-list li {
+    padding: 12px 24px;
+    border-bottom: 1px solid #ddd;
+}
+
+.list-date {
+    float: right;
+    color: #777;
+}
+
+.blog-list li:last-child {
+    border-bottom:none;
+}
+
+.blog-list li:hover {
+    background-color: #f8f9fa;
+}
+@media screen and (max-width: 960px) {
+
+    .header {
+        position: inherit;
+    }
+
+    .wrap {
+        width: 90%;
+        margin: 25px auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        float: right;
+        margin: 25px 0 0;
+    }
+
+    .sidebar .profile-card {
+        padding: 5%;
+    }
+
+    .blog {
+        width: 100%;
+    }
+
+    .blog-article,
+    .comments {
+        float: inherit;
+        width: 100%;
+        padding: 5%;
+        margin: 0 auto 25px;
+        background: #fff;
+        border: 1px solid #dedede;
+    }
+
+}
+
+@media screen and (max-width: 460px) {
+    .list-date {
+        float: none;
+        display: block;
+        color: #777;
+    }
+
+    .sidebar {
+        display: none
+    }
+
+    .post-info {
+        display: none;
+    }
+
+    .blog-article,
+    .comments {
+        margin: 25px auto;
+    }
+}

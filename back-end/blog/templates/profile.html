@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="wrap">
+    <div class="page">
+        <h1>User Profile</h1>
+        <img src="https://placeholder.pics/svg/100" alt="" id="show-img">
+        <button id="upload">upload</button>     
+    </div>
+</div>
+<script src="{{url_for('static', filename='js/user.js')}}"></script>
+{% endblock %}

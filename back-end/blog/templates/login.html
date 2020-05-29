@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/blog.css')}}">
+</head>
+
+<body>
+    <div class="login-wrap">
+        <div class="login-html">
+            <ul class="tag-list">
+                <li class="tag active" data-id="#sign-in-form">Sign In</li>
+                <li class="tag" data-id="#sign-up-form">Sign Up</li>
+            </ul>
+            <div class="login-form">
+                <form name="signinform" class="tag-content show" id="sign-in-form" onsubmit="return PostData()">
+                    <div class="group">
+                        <label for="user" class="label">Username</label>
+                        <input name="username" type="text" required>
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
+                        <input name="password" type="password" data-type="password" required>
+                    </div>
+                    <div class="group">
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="btn" value="Sign In">
+                    </div>
+                </form>
+                <form class="tag-content" id="sign-up-form">
+                    <div class="group">
+                        <label for="user" class="label">Username</label>
+                        <input  type="text">
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Password</label>
+                        <input  type="password" data-type="password">
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Repeat Password</label>
+                        <input  type="password" data-type="password">
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Email Address</label>
+                        <input  type="text">
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="btn" value="Sign Up">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>
+    <script src="{{url_for('static', filename='js/login.js')}}"></script>
+</body>
+
+</html>
