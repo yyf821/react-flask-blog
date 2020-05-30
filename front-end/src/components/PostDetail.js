@@ -23,7 +23,8 @@ class PostDetail extends Component {
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        post: result
+                        post: result,
+                        comments: result.comments
                     });
                 },
                 // 注意：需要在此处处理错误
@@ -37,23 +38,6 @@ class PostDetail extends Component {
                 }
             )
 
-        fetch(`http://localhost:5000/api/article/${id}/comments`)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        comments: result.data
-                    });
-                },
-                // 注意：需要在此处处理错误
-                // 而不是使用 catch() 去捕获错误
-                // 因为使用 catch 去捕获异常会掩盖掉组件本身可能产生的 bug
-                (error) => {
-                    this.setState({
-                        error
-                    });
-                }
-            )
     }
     render() {
         const { error, isLoaded, post } = this.state;

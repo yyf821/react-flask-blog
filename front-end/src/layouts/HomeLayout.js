@@ -3,6 +3,9 @@ import { Layout } from 'antd';
 import Nav from '../components/Nav';
 const { Header, Footer, Content } = Layout;
 class HomeLayout extends Component {
+    componentDidMount() {
+        document.title = this.props.title
+    }
 
     render() {
         const { children } = this.props;

@@ -69,12 +69,6 @@ def login_required(view_func):
 def error_404(e):
     return render_template('error.html', message='404 error'), 404
 
-# Function to handle the root path '/'
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template('home.html')
-
 
 @app.route('/api/user/login', methods=['POST'])
 def user_login():
@@ -108,21 +102,6 @@ def user_login():
 #         db.session.commit()  # Commits all changes
 #         return jsonify(msg="successfully created!")
 #     return jsonify(msg="注册失败")
-
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-
-@app.route('/articles/<id>')
-def get_a_post(id):
-    return render_template('articles_detail.html')
-
-
-@app.route('/user/<id>')
-def get_user(id):
-    return render_template('profile.html')
 
 
 @app.route("/api/user/detail")
