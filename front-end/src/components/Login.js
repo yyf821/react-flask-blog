@@ -4,15 +4,18 @@ import { Form, Input, Button } from 'antd';
 import HomeLayout from '../layouts/HomeLayout';
 import UserApi from '../api/user'
 
-const Login = () => {
+const Login = (props) => {
   let api = new UserApi()
   const onFinish = values => {
     console.log('Success:', values);
     let login = api.login(values)
-    login.then((result)=>{
+    login.then((result) => {
       if (result.data) {
         localStorage.setItem('token-key', JSON.stringify(result.data));
-    }
+        props.history.push("/");
+      } else {
+        alert(result.msg)
+      }
     })
   };
 
