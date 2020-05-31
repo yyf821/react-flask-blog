@@ -12,4 +12,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = app.config["DATABASE_URI"]
 app.config['SQLALCHEMY_POOL_SIZE'] = 10
 db = SQLAlchemy(app)
 app.secret_key = app.config["SECRET_KEY"]
-from blog import routes, models
+from blog import models
+from blog.api import api
+app.register_blueprint(api)

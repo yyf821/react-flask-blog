@@ -1,0 +1,60 @@
+from ..models import User
+from flask import jsonify
+from werkzeug.utils import secure_filename
+import os
+from .. import db, app
+from flask import request
+from .auth import *
+
+
+def extract_user(u):
+    user = {
+        'id': u.id,
+        'username': u.username,
+        'email': u.email,
+        'created': u.created,
+    }
+    if u.about_me:
+        user['about_me'] = u.about_me
+    else:
+        user['about_me'] = ''
+    return user
+
+
+@app.route('/api/user/<id>')
+def user(id):
+    user = User.query.get(id)
+    u = extract_user(user)
+    return jsonify(u)
+
+
+# 设置允许的文件格式
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'JPG', 'PNG', 'bmp'])
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+@app.route('/api/upload', methods=['POST'])
+@login_required
+def upload():
+    token = request.headers["token-key"]
+    user = verify_token(token)
+    f = request.files['avatar']
+    if not (f and allowed_file(f.filename)):
+        return jsonify({
+            "error": 1001,
+            "msg": "请检查上传的图片类型，仅限于png、PNG、jpg、JPG、bmp"
+        })
+    basepath = os.path.dirname(__file__)  # 当前文件所在路径
+    # 注意：没有的文件夹一定要先创建，不然会提示没有该路径
+    filename = secure_filename(f.filename)
+    upload_path = os.path.join(basepath, 'static/images', filename)
+    show_path = '/static/images'
+    img_url = os.path.join(show_path, filename)
+    f.save(upload_path)
+    u = User.query.get(user.id)
+    u.avatar_url = img_url
+    db.session.commit()
+    return jsonify({'result': img_url})
