@@ -29,7 +29,6 @@ def extract_comments(row):
 
 @app.route('/api/article/<id>')
 def articles(id):
-
     post = Post.query.get(id)
     p = extract_posts(post)
     comments = post.comments.all()
@@ -38,6 +37,15 @@ def articles(id):
         data = extract_comments(row)
         all_comments.append(data)
     p['comments'] = all_comments
+    try:
+        token = request.headers["token-key"]
+        user = verify_token(token)
+    except Exception:
+        return jsonify(p)
+    if user.id == p['user_id']:
+        p['current'] = True
+    else:
+        p['current'] = False
     return jsonify(p)
 
 

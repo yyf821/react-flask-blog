@@ -1,66 +1,51 @@
 import React, { Component } from 'react';
 import Comments from './Comments'
 import HomeLayout from '../layouts/HomeLayout';
+import PostApi from '../api/post'
 
 class PostDetail extends Component {
     constructor(props) {
         super(props);
+        this.api = new PostApi()
         this.state = {
             // 获取动态路由中参数的值
             isLoaded: false,
             id: this.props.match.params.id,
             post: {},
-            comments: [],
-            error: null,
         };
     }
 
     componentDidMount() {
         const id = this.state.id
-        fetch(`http://localhost:5000/api/article/${id}`)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        post: result,
-                        comments: result.comments
-                    });
-                },
-                // 注意：需要在此处处理错误
-                // 而不是使用 catch() 去捕获错误
-                // 因为使用 catch 去捕获异常会掩盖掉组件本身可能产生的 bug
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        this.api.detail(id).then(result => {
+            this.setState({
+                isLoaded: true,
+                post: result,
+            });
+        })
 
     }
     render() {
-        const { error, isLoaded, post } = this.state;
-        let comments = this.state.comments
-        let content;
-        if (error) {
-            content = <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
+        const { isLoaded, post } = this.state;
+        const { title, body, author, current } = post
+        let content, edit;
+        if (current) {
+            edit = <div>编辑 | 删除</div>
+        }
+        if (!isLoaded) {
             content = <div>Loading...</div>;
         } else {
-            const { title, body, author } = post
             content = <div>
                 <h1>{title}</h1>
-                <p>{author}</p>
+                <div>{author}</div>
+                {edit}
                 <p>{body}</p>
                 <h2>Comments</h2>
-                <Comments comments={comments} />
+                <Comments comments={post.comments} />
             </div>
-
-
         }
         return (
-            <HomeLayout title="Welcome">
+            <HomeLayout title="博客详情">
                 <div className="site-layout-content">
                     {content}
                     {this.props.user}

@@ -21,8 +21,8 @@ class PostApi extends Api {
         return this.get(path)
     }
 
-    detail(todoId) {
-        let path = '/' + String(todoId)
+    detail(postId) {
+        let path = '/article/' + String(postId)
         return this.get(path)
     }
 }
