@@ -40,12 +40,13 @@ def articles(id):
     try:
         token = request.headers["token-key"]
         user = verify_token(token)
+        if user.id == p['user_id']:
+            p['current'] = True
+        else:
+            p['current'] = False
     except Exception:
-        return jsonify(p)
-    if user.id == p['user_id']:
-        p['current'] = True
-    else:
         p['current'] = False
+        return jsonify(p)
     return jsonify(p)
 
 

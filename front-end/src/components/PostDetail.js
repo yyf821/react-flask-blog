@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Comments from './Comments'
 import HomeLayout from '../layouts/HomeLayout';
 import PostApi from '../api/post'
+import { dateFormat } from "../utils"
 
 class PostDetail extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ class PostDetail extends Component {
     }
     render() {
         const { isLoaded, post } = this.state;
-        const { title, body, author, current } = post
+        const { title, body, author, current, date } = post
         let content, edit;
         if (current) {
             edit = <div>编辑 | 删除</div>
@@ -37,7 +38,7 @@ class PostDetail extends Component {
         } else {
             content = <div>
                 <h1>{title}</h1>
-                <div>{author}</div>
+                <p>{author} {dateFormat(date)}</p>
                 {edit}
                 <p>{body}</p>
                 <h2>Comments</h2>

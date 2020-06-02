@@ -26,11 +26,11 @@ class UserInfo extends Component {
         if (this.state.isLogin) {
             let { id, username } = this.state.user
             info = (
-                <div><Link to={`/user/${id}`}>{username}</Link></div>
+                <Link to={`/user/${id}`}>{username}</Link>
             )
         } else {
             info = (
-                <div><Link to={`/login`}>login</Link></div>
+                <Link to={`/login`}>login</Link>
             )
         }
 
