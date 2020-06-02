@@ -29,7 +29,7 @@ def extract_comments(row):
 
 @app.route('/api/article/<id>')
 def articles(id):
-    post = Post.query.get(id)
+    post = Post.query.get_or_404(id)
     p = extract_posts(post)
     comments = post.comments.all()
     all_comments = []
@@ -88,7 +88,8 @@ def add_post():
     return jsonify(data)
 
 
-@app.route('/api/article/<id>', methods=['DELETE'])
+@app.route('/api/article/delete/<id>', methods=['GET'])
+@login_required
 def delete_article(id):
     db.session.query(Comment).filter(Comment.post_id == id).delete()
     post = Post.query.get(id)
@@ -98,6 +99,7 @@ def delete_article(id):
 
 
 @app.route('/api/article/edit/<id>', methods=['POST'])
+@login_required
 def edit_article(id):
     article = request.get_json()
     title = article['title']

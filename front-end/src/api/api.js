@@ -9,7 +9,11 @@ const _ajax = (method, url, data) => {
         }
         r.onreadystatechange = () => {
             if (r.readyState === 4) {
-                resolve(JSON.parse(r.response))
+                if (r.status === 200) {
+                    resolve(JSON.parse(r.response))
+                } else {
+                    reject(JSON.parse(r.response))
+                }
             }
         }
         if (method === 'POST') {

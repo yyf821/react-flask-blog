@@ -5,4 +5,4 @@ from werkzeug.exceptions import HTTPException
 
 @app.errorhandler(HTTPException)
 def handle_http_error(exc):
-    return jsonify({'status': 'error', 'description': exc.description}), exc.code
+    return jsonify({'code': exc.code, 'description': exc.description, 'name': exc.name}), exc.code

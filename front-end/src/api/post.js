@@ -6,13 +6,13 @@ class PostApi extends Api {
         return this.post(path, data)
     }
 
-    delete(todoId) {
-        let path = '/delete/' + String(todoId)
+    delete(postId) {
+        let path = '/article/delete/' + String(postId)
         return this.get(path)
     }
 
-    update(todoId, data) {
-        let path = '/update/' + String(todoId)
+    update(postId, data) {
+        let path = '/update/' + String(postId)
         return this.post(path, data)
     }
 
