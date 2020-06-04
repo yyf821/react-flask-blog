@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Comments from './Comments'
 import Error from './Error'
-import HomeLayout from '../layouts/HomeLayout';
+import TwoColsLayout from '../layouts/TwoColsLayout';
 import PostApi from '../api/post'
 import { dateFormat } from "../utils"
 import { Button } from 'antd';
@@ -69,12 +69,12 @@ class PostDetail extends Component {
             </div>
         }
         return (
-            <HomeLayout title="博客详情">
-                <div className="site-layout-content">
+            <TwoColsLayout title="博客详情">
+                <div className="white main">
                     {content}
-                    {this.props.user}
                 </div>
-            </HomeLayout>
+                <div className="white side">22222222222222222</div>
+            </TwoColsLayout>
 
         );
     }

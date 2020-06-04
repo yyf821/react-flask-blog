@@ -9,6 +9,10 @@ class UserApi extends Api {
         let path = '/user/detail'
         return this.get(path)
     }
+    detail(userId) {
+        let path = '/user/' + String(userId)
+        return this.get(path)
+    }
 }
 
 export default UserApi

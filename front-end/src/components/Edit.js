@@ -17,12 +17,7 @@ class Edit extends Component {
     }
 
     handleClick() {
-        const editing = this.state.editing;
-        if (editing) {
-            this.setState({ editing: false });
-        } else {
-            this.setState({ editing: true });
-        }
+        this.setState({ editing: !this.state.editing });
     }
 
     changeTitle(e) {
@@ -32,7 +27,7 @@ class Edit extends Component {
     changeBody(e) {
         this.setState({ body: e.target.value });
     }
-    addPost(){
+    addPost() {
         let data = {
             title: this.state.title,
             content: this.state.body

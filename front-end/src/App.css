@@ -1,17 +1,40 @@
 @import '~antd/dist/antd.css';
 
-.site-layout-content {
-    background: #fff;
-    padding: 24px;
-    min-height: 280px;
+.two-cols-layout,.site-layout-content {
     margin: 16px 50px;
 }
 
-.center{
+.site-layout-content {
+    padding: 24px;
+    min-height: 280px;
+    background: #fff;
+}
+
+.main,.side {
+    padding: 24px;
+    margin-bottom: 16px;
+}
+
+.top-menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.center {
     text-align: center;
 }
 
-.top-menu{
-    display: flex;
-    justify-content: space-between;
+.white {
+    background: #fff;
+}
+
+@media all and (max-width:700px) {
+    .ant-col-8,.ant-col-16 {
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    .site-layout-content, .two-cols-layout {
+        margin: 16px 0;
+    }
 }

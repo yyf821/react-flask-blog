@@ -3,6 +3,7 @@ import Post from "./components/Post";
 import NoMatch from "./components/NoMatch";
 import Login from "./components/Login";
 import PostDetail from "./components/PostDetail";
+import UserProfile from "./components/UserProfile";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css';
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
                     <Route exact path="/" component={Post} />
                     <Route exact path="/login" component={Login} />
                     <Route path="/posts/:id" component={PostDetail} />
+                    <Route path="/user/:id" component={UserProfile} />
                     <Route component={NoMatch} />
                 </Switch>
             </Router>

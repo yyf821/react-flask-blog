@@ -1,36 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'antd/dist/antd.css';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Alert } from 'antd';
 import HomeLayout from '../layouts/HomeLayout';
 import UserApi from '../api/user'
 
 const Login = (props) => {
   let api = new UserApi()
+  const [error, setError] = useState({
+    isShow: false,
+    message: ''
+  });
   const onFinish = values => {
-    console.log('Success:', values);
     let login = api.login(values)
     login.then((result) => {
       if (result.data) {
         localStorage.setItem('token-key', JSON.stringify(result.data));
         props.history.push("/");
       } else {
-        alert(result.msg)
+        setError({
+          isShow: true,
+          message: result.msg
+        })
       }
     })
-  };
-
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
   };
 
   const form = (
     <Form
       name="basic"
-      initialValues={{
-        remember: true,
-      }}
+      layout="vertical"
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
     >
       <Form.Item
         label="Username"
@@ -66,9 +65,12 @@ const Login = (props) => {
   );
 
   return (
-    <HomeLayout title="Welcome">
+    <HomeLayout title="用户登录">
       <div className="site-layout-content">
         <h1>用户登录</h1>
+        {error.isShow &&
+          <Alert message={error.message} type="error" />
+        }
         {form}
       </div>
     </HomeLayout>
