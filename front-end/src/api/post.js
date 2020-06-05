@@ -12,7 +12,7 @@ class PostApi extends Api {
     }
 
     update(postId, data) {
-        let path = '/update/' + String(postId)
+        let path = '/article/update/' + String(postId)
         return this.post(path, data)
     }
 

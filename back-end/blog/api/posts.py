@@ -98,7 +98,7 @@ def delete_article(id):
     return jsonify({'result': True})
 
 
-@app.route('/api/article/edit/<id>', methods=['POST'])
+@app.route('/api/article/update/<id>', methods=['POST'])
 @login_required
 def edit_article(id):
     article = request.get_json()
