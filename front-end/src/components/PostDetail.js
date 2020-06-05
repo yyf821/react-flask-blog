@@ -53,16 +53,16 @@ class PostDetail extends Component {
 
     updatePost(data) {
         const id = this.state.id
+        let post = this.state.post
         this.api.update(id, data).then(result => {
-            let data = Object.assign({}, this.state.post, {
-                title: result.title,
-                body: result.content
-            })
+            post.title = result.title
+            post.body = result.content
             this.setState({
-                post: data,
+                post: post,
                 editing: false
             });
         })
+
     }
 
     render() {
