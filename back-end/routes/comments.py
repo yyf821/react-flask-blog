@@ -1,9 +1,10 @@
-from flask import jsonify, request
-from .. import db, app
-from ..models import Post, Comment
+from flask import jsonify, request, Blueprint
+from app import db, app
+from models.post import Post
+from models.comment import Comment
 import html
 from .auth import *
-
+main = Blueprint('comments', __name__)
 
 def extract_comments(row):
     comments = {
@@ -15,7 +16,7 @@ def extract_comments(row):
     return comments
 
 
-@app.route('/api/article/<id>/comments', methods=['GET'])
+@main.route('/api/article/<id>/comments', methods=['GET'])
 def get_comments(id):
     post = Post.query.get(id)
     comments = post.comments.all()
@@ -26,7 +27,7 @@ def get_comments(id):
     return jsonify(data=all_comments)
 
 
-@app.route('/api/article/<id>/comments', methods=['POST'])
+@main.route('/api/article/<id>/comments', methods=['POST'])
 @login_required
 def add_new_comment(id):
     comment = request.get_json()

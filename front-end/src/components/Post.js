@@ -76,7 +76,7 @@ class Post extends Component {
                     <Button type="primary" onClick={this.handleClick} className="div-space">
                         发表博客
                     </Button>
-                    {this.state.editing && <EditForm handleSubmit ={this.addPost}/>}
+                    {this.state.editing && <EditForm handleSubmit={this.addPost} />}
                     <PostList posts={posts} />
                     <Pagination style={{ textAlign: "center" }} defaultPageSize={5} defaultCurrent={1} total={count} onChange={this.onChange} />
                 </div>

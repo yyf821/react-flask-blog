@@ -1,11 +1,11 @@
-from ..models import User
-from flask import jsonify
+from models.user import User
+from flask import jsonify, Blueprint
 from werkzeug.utils import secure_filename
 import os
-from .. import db, app
+from app import db, app
 from flask import request
 from .auth import *
-
+main = Blueprint('users', __name__)
 
 def extract_user(u):
     user = {
@@ -21,7 +21,7 @@ def extract_user(u):
     return user
 
 
-@app.route('/api/user/<id>')
+@main.route('/api/user/<id>')
 def user(id):
     user = User.query.get(id)
     u = extract_user(user)
@@ -36,7 +36,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-@app.route('/api/upload', methods=['POST'])
+@main.route('/api/upload', methods=['POST'])
 @login_required
 def upload():
     token = request.headers["token-key"]

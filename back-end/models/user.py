@@ -1,4 +1,4 @@
-from blog import db
+from app import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -28,30 +28,3 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
-
-
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(64), nullable=False)
-    body = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, index=True,
-                          default=datetime.utcnow, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    comments = db.relationship('Comment', backref='post', lazy='dynamic')
-
-    def __repr__(self):
-        return '<Post {}>'.format(self.body)
-
-
-class Comment(db.Model):
-    __tablename__ = 'comments'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    body = db.Column(db.String(140), nullable=False)
-    timestamp = db.Column(db.DateTime, index=True,
-                          default=datetime.utcnow, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
-
-    def __repr__(self):
-        return '<Comment {}>'.format(self.body)
-

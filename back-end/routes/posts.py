@@ -1,9 +1,10 @@
 import html
-from ..models import Post, Comment
+from models.post import Post
+from models.comment import Comment
 from .auth import *
-from flask import jsonify, request
-from .. import db, app
-
+from flask import jsonify, request, Blueprint
+from app import db, app
+main = Blueprint('posts', __name__)
 
 def extract_posts(p):
     post = {
@@ -27,7 +28,7 @@ def extract_comments(row):
     return comments
 
 
-@app.route('/api/article/<id>')
+@main.route('/api/article/<id>')
 def articles(id):
     post = Post.query.get_or_404(id)
     p = extract_posts(post)
@@ -50,7 +51,7 @@ def articles(id):
     return jsonify(p)
 
 
-@app.route('/api/article', methods=['GET'])
+@main.route('/api/article', methods=['GET'])
 def get_articles():
     page = request.args.get('page', type=int)
     posts = Post.query.order_by(Post.timestamp.desc())
@@ -69,7 +70,7 @@ def get_articles():
     return jsonify(page)
 
 
-@app.route('/api/article', methods=['POST'])
+@main.route('/api/article', methods=['POST'])
 @login_required
 def add_post():
     post = request.get_json()
@@ -88,7 +89,7 @@ def add_post():
     return jsonify(data)
 
 
-@app.route('/api/article/delete/<id>', methods=['GET'])
+@main.route('/api/article/delete/<id>', methods=['GET'])
 @login_required
 def delete_article(id):
     db.session.query(Comment).filter(Comment.post_id == id).delete()
@@ -98,7 +99,7 @@ def delete_article(id):
     return jsonify({'result': True})
 
 
-@app.route('/api/article/update/<id>', methods=['POST'])
+@main.route('/api/article/update/<id>', methods=['POST'])
 @login_required
 def edit_article(id):
     article = request.get_json()

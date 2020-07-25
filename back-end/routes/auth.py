@@ -1,8 +1,9 @@
-from flask import request, jsonify, current_app
+from flask import request, jsonify, current_app, Blueprint
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from ..models import User
-from .. import app
+from models.user import User
+from app import app
 from functools import wraps
+main = Blueprint('auth', __name__)
 
 
 def create_token(api_user):
@@ -61,7 +62,7 @@ def login_required(view_func):
     return verify_token
 
 
-@app.route('/api/user/login', methods=['POST'])
+@main.route('/api/user/login', methods=['POST'])
 def user_login():
     user = request.get_json()
     name = user['username']
@@ -78,7 +79,8 @@ def user_login():
     # 把token返回给前端
     return jsonify(msg="成功", data=token)
 
-@app.route("/api/user/detail")
+
+@main.route("/api/user/detail")
 @login_required  # 必须登录的装饰器校验
 def userInfo():
     '''

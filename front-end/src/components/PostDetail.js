@@ -4,8 +4,23 @@ import Error from './Error'
 import TwoColsLayout from '../layouts/TwoColsLayout';
 import PostApi from '../api/post'
 import { dateFormat } from "../utils"
-import { Button, Space } from 'antd';
+import { Button, Space, Form, Input } from 'antd';
 import EditForm from "./EditForm";
+
+const { TextArea } = Input;
+
+const Editor = ({ onChange, onSubmit, submitting, value }) => (
+    <>
+        <Form.Item>
+            <TextArea rows={4} onChange={onChange} value={value} />
+        </Form.Item>
+        <Form.Item>
+            <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+                Add Comment
+        </Button>
+        </Form.Item>
+    </>
+);
 
 class PostDetail extends Component {
     constructor(props) {
@@ -21,6 +36,9 @@ class PostDetail extends Component {
             id: this.props.match.params.id,
             post: {},
             error: null,
+            comments: [],
+            submitting: false,
+            value: '',
         };
     }
 
@@ -39,6 +57,25 @@ class PostDetail extends Component {
         })
 
     }
+
+    handleChange = e => {
+        this.setState({
+            value: e.target.value,
+        });
+    };
+
+    addComments = () => {
+        if (!this.state.value) {
+          return;
+        }
+    
+        this.setState({
+          submitting: true,
+        });
+    
+
+      };
+
 
     handleClick() {
         this.setState({ editing: !this.state.editing });
@@ -66,7 +103,7 @@ class PostDetail extends Component {
     }
 
     render() {
-        const { isLoaded, post, error } = this.state;
+        const { isLoaded, post, error,value,submitting } = this.state;
         const { title, body, author, current, date } = post
         let content, edit;
 
@@ -98,6 +135,12 @@ class PostDetail extends Component {
             <TwoColsLayout title="博客详情">
                 <div className="white main">
                     {content}
+                    <Editor
+                        onChange={this.handleChange}
+                        onSubmit={this.addComments}
+                        submitting={submitting}
+                        value={value}
+                    />
                 </div>
                 <div className="white side">22222222222222222</div>
             </TwoColsLayout>

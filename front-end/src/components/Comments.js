@@ -9,7 +9,7 @@ class Comments extends Component {
         return (
             <List
                 className="comment-list"
-                header={`${comments.length} replies`}
+                header={`${comments.length} 条评论`}
                 itemLayout="horizontal"
                 dataSource={comments}
                 locale={empty}
