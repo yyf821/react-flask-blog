@@ -3,8 +3,9 @@ import Comments from './Comments'
 import Error from './Error'
 import TwoColsLayout from '../layouts/TwoColsLayout';
 import PostApi from '../api/post'
+import CommentApi from '../api/comment'
 import { dateFormat } from "../utils"
-import { Button, Space, Form, Input } from 'antd';
+import { Comment, Avatar, Button, Space, Form, Input } from 'antd';
 import EditForm from "./EditForm";
 
 const { TextArea } = Input;
@@ -17,7 +18,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
         <Form.Item>
             <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
                 Add Comment
-        </Button>
+            </Button>
         </Form.Item>
     </>
 );
@@ -26,6 +27,7 @@ class PostDetail extends Component {
     constructor(props) {
         super(props);
         this.api = new PostApi()
+        this.commentApi = new CommentApi()
         this.deletePost = this.deletePost.bind(this);
         this.updatePost = this.updatePost.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -48,6 +50,7 @@ class PostDetail extends Component {
             this.setState({
                 isLoaded: true,
                 post: result,
+                comments: result.comments
             });
         }, error => {
             this.setState({
@@ -65,20 +68,42 @@ class PostDetail extends Component {
     };
 
     addComments = () => {
-        if (!this.state.value) {
-          return;
+        const { id, value } = this.state
+        if (!value) {
+            return;
         }
-    
         this.setState({
-          submitting: true,
+            submitting: true,
         });
-    
+        this.commentApi.add({ post_id: id, content: value }).then(result => {
+            if (!result.data) {
+                alert(result.msg)
+                this.setState({
+                    submitting: false,
+                });
+                return
+            }
+            let { user, date, content } = result.data
+            this.setState({
+                submitting: false,
+                value: '',
+                comments: [
+                    {
+                        user,
+                        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                        content,
+                        date,
+                    },
+                    ...this.state.comments,
+                ]
+            })
 
-      };
+        })
+    }
 
 
     handleClick() {
-        this.setState({ editing: !this.state.editing });
+        this.setState({ editing: !this.state.editing })
     }
 
     deletePost() {
@@ -103,7 +128,7 @@ class PostDetail extends Component {
     }
 
     render() {
-        const { isLoaded, post, error,value,submitting } = this.state;
+        const { isLoaded, post, error, value, submitting } = this.state;
         const { title, body, author, current, date } = post
         let content, edit;
 
@@ -128,18 +153,28 @@ class PostDetail extends Component {
                 <p>{body}</p>
                 {this.state.editing && <EditForm handleSubmit={this.updatePost} title={title} content={body} />}
                 <h2>Comments</h2>
-                <Comments comments={post.comments} />
+                <Comments comments={this.state.comments} />
             </div>
         }
         return (
             <TwoColsLayout title="博客详情">
                 <div className="white main">
                     {content}
-                    <Editor
-                        onChange={this.handleChange}
-                        onSubmit={this.addComments}
-                        submitting={submitting}
-                        value={value}
+                    <Comment
+                        avatar={
+                            <Avatar
+                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                                alt="Han Solo"
+                            />
+                        }
+                        content={
+                            <Editor
+                                onChange={this.handleChange}
+                                onSubmit={this.addComments}
+                                submitting={submitting}
+                                value={value}
+                            />
+                        }
                     />
                 </div>
                 <div className="white side">22222222222222222</div>

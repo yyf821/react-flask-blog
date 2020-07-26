@@ -10,8 +10,8 @@ def extract_comments(row):
     comments = {
         'id': row.id,
         'user': row.author.username,
-        'date': str(row.timestamp)[:19],
-        'content': html.escape(row.body),
+        'date': row.timestamp,
+        'content': row.body,
     }
     return comments
 
@@ -27,15 +27,16 @@ def get_comments(id):
     return jsonify(data=all_comments)
 
 
-@main.route('/api/article/<id>/comments', methods=['POST'])
+@main.route('/api/comments', methods=['POST'])
 @login_required
-def add_new_comment(id):
+def add_new_comment():
     comment = request.get_json()
     content = comment['content']
+    post_id = comment['post_id']
     token = request.headers["token-key"]
     user = verify_token(token)
-    comment = Comment(body=content, user_id=user.id, post_id=id)
+    comment = Comment(body=content, user_id=user.id, post_id=post_id)
     db.session.add(comment)
     db.session.commit()
     data = extract_comments(comment)
-    return jsonify(data=data, msg='评论成功')
+    return jsonify(status=1,data=data, msg='评论成功')

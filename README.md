@@ -14,4 +14,6 @@
     yarn run start
 
 ### 数据库
-参考 Flask-SQLAlchemy 配置URI
+config.py中添加DATABASE_URI
+如果和我一样使用sql server：
+mssql+pyodbc://username:password@dsn（替换成自己的用户名，密码和dsn）

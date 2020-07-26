@@ -55,7 +55,7 @@ def login_required(view_func):
         try:
             s.loads(token)
         except Exception:
-            return jsonify(msg="登录已过期")
+            return jsonify(status=0, msg="登录已过期")
 
         return view_func(*args, **kwargs)
 
