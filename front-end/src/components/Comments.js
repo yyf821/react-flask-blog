@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { Comment, Avatar, List } from 'antd';
 class Comments extends Component {
     render() {
@@ -16,7 +17,7 @@ class Comments extends Component {
                 renderItem={c => (
                     <li>
                         <Comment
-                            author={c.user}
+                            author={<Link to={`/user/${c.user_id}`}>{c.user}</Link>}
                             avatar={
                                 <Avatar
                                     src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"

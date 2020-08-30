@@ -2,14 +2,15 @@ from flask import jsonify, request, Blueprint
 from app import db, app
 from models.post import Post
 from models.comment import Comment
-import html
 from .auth import *
 main = Blueprint('comments', __name__)
+
 
 def extract_comments(row):
     comments = {
         'id': row.id,
         'user': row.author.username,
+        'user_id': row.user_id,
         'date': row.timestamp,
         'content': row.body,
     }
@@ -22,6 +23,7 @@ def get_comments(id):
     comments = post.comments.all()
     all_comments = []
     for row in comments:
+        print(row)
         data = extract_comments(row)
         all_comments.append(data)
     return jsonify(data=all_comments)
@@ -39,4 +41,4 @@ def add_new_comment():
     db.session.add(comment)
     db.session.commit()
     data = extract_comments(comment)
-    return jsonify(status=1,data=data, msg='评论成功')
+    return jsonify(status=1, data=data, msg='评论成功')

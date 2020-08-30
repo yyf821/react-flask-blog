@@ -3,6 +3,11 @@ from app import app
 from werkzeug.exceptions import HTTPException
 main = Blueprint('errors', __name__)
 
+
 @main.errorhandler(HTTPException)
 def handle_http_error(exc):
-    return jsonify({'code': exc.code, 'description': exc.description, 'name': exc.name}), exc.code
+    return jsonify({
+        'code': exc.code,
+        'description': exc.description,
+        'name': exc.name
+    }), exc.code

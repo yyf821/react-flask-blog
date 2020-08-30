@@ -1,4 +1,3 @@
-import html
 from models.post import Post
 from models.comment import Comment
 from .auth import *
@@ -6,13 +5,14 @@ from flask import jsonify, request, Blueprint
 from app import db, app
 main = Blueprint('posts', __name__)
 
+
 def extract_posts(p):
     post = {
         'id': p.id,
         'user_id': p.user_id,
         'author': p.author.username,
-        'title': html.escape(p.title),
-        'body': html.escape(p.body),
+        'title': p.title,
+        'body': p.body,
         'date': p.timestamp,
     }
     return post
@@ -22,8 +22,9 @@ def extract_comments(row):
     comments = {
         'id': row.id,
         'user': row.author.username,
-        'date': str(row.timestamp)[:19],
-        'content': html.escape(row.body),
+        'date': row.timestamp,
+        'user_id': row.user_id,
+        'content': row.body,
     }
     return comments
 
@@ -56,17 +57,13 @@ def get_articles():
     page = request.args.get('page', type=int)
     posts = Post.query.order_by(Post.timestamp.desc())
     count = posts.count()
-    pagination = posts.paginate(
-        page, app.config['POSTS_PER_PAGE'], False)
+    pagination = posts.paginate(page, app.config['POSTS_PER_PAGE'], False)
     items = pagination.items
     all_posts = []
     for p in items:
         data = extract_posts(p)
         all_posts.append(data)
-    page = {
-        'totalPosts': count,
-        'posts': all_posts
-    }
+    page = {'totalPosts': count, 'posts': all_posts}
     return jsonify(page)
 
 
@@ -109,8 +106,5 @@ def edit_article(id):
     post.title = title
     post.body = content
     db.session.commit()
-    data = {
-        'title': html.escape(title),
-        'content': html.escape(content)
-    }
+    data = {'title': html.escape(title), 'content': html.escape(content)}
     return jsonify(data)

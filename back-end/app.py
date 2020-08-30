@@ -4,7 +4,8 @@ from flask_cors import CORS
 import config
 
 # Initializes app and database connection
-app = Flask(__name__, template_folder='templates',
+app = Flask(__name__,
+            template_folder='templates',
             instance_relative_config=True)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 app.config.from_pyfile('config.py')
@@ -26,7 +27,6 @@ app.register_blueprint(posts_routes)
 app.register_blueprint(users_routes)
 app.register_blueprint(errors_routes)
 app.register_blueprint(auth_routes)
-
 
 # Starts listening for requests...
 if __name__ == '__main__':

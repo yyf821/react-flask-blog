@@ -7,6 +7,7 @@ from flask import request
 from .auth import *
 main = Blueprint('users', __name__)
 
+
 def extract_user(u):
     user = {
         'id': u.id,
