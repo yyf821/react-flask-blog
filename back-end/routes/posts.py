@@ -31,7 +31,7 @@ def extract_comments(row):
 
 @main.route('/api/article/<id>')
 def articles(id):
-    post = Post.query.get_or_404(id)
+    post = Post.query.get_or_404(id, description='对不起文章未找到，请返回首页')
     p = extract_posts(post)
     comments = post.comments.all()
     all_comments = []
@@ -78,11 +78,7 @@ def add_post():
     post = Post(title=title, body=content, user_id=user.id)
     db.session.add(post)
     db.session.commit()
-    data = {
-        'id': post.id,
-        'date': str(post.timestamp)[:19],
-        'title': html.escape(post.title)
-    }
+    data = {'id': post.id, 'date': post.timestamp, 'title': post.title}
     return jsonify(data)
 
 
@@ -106,5 +102,5 @@ def edit_article(id):
     post.title = title
     post.body = content
     db.session.commit()
-    data = {'title': html.escape(title), 'content': html.escape(content)}
+    data = {'title': title, 'content': content}
     return jsonify(data)

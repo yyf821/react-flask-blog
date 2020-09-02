@@ -4,7 +4,7 @@ from werkzeug.exceptions import HTTPException
 main = Blueprint('errors', __name__)
 
 
-@main.errorhandler(HTTPException)
+@app.errorhandler(HTTPException)
 def handle_http_error(exc):
     return jsonify({
         'code': exc.code,

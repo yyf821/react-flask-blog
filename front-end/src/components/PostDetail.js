@@ -154,30 +154,32 @@ class PostDetail extends Component {
                 {this.state.editing && <EditForm handleSubmit={this.updatePost} title={title} content={body} />}
                 <h2>Comments</h2>
                 <Comments comments={this.state.comments} />
+                <Comment
+                    avatar={
+                        <Avatar
+                            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                            alt="Han Solo"
+                        />
+                    }
+                    content={
+                        <Editor
+                            onChange={this.handleChange}
+                            onSubmit={this.addComments}
+                            submitting={submitting}
+                            value={value}
+                        />
+                    }
+                />
             </div>
         }
         return (
             <TwoColsLayout title="博客详情">
                 <div className="white main">
                     {content}
-                    <Comment
-                        avatar={
-                            <Avatar
-                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                                alt="Han Solo"
-                            />
-                        }
-                        content={
-                            <Editor
-                                onChange={this.handleChange}
-                                onSubmit={this.addComments}
-                                submitting={submitting}
-                                value={value}
-                            />
-                        }
-                    />
                 </div>
-                <div className="white side">22222222222222222</div>
+                <div className="white side">
+                    <h1>{this.state.post.author}</h1>
+                </div>
             </TwoColsLayout>
 
         );

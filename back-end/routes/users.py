@@ -24,7 +24,7 @@ def extract_user(u):
 
 @main.route('/api/user/<id>')
 def user(id):
-    user = User.query.get(id)
+    user = User.query.get_or_404(id, description='对不起用户未找到，请返回首页')
     u = extract_user(user)
     return jsonify(u)
 
