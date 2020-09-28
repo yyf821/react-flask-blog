@@ -40,6 +40,30 @@ class Api {
         let url = this.baseUrl + path
         return _ajax('POST', url, data)
     }
+
+    upload(path, fd) {
+        let url = this.baseUrl + path
+        let p = new Promise((resolve, reject) => {
+            let r = new XMLHttpRequest()
+            r.open('post', url)
+            let key = localStorage.getItem('token-key')
+            if (key) {
+                r.setRequestHeader('token-key', JSON.parse(key))
+            }
+            r.onreadystatechange = () => {
+                if (r.readyState === 4) {
+                    if (r.status === 200) {
+                        resolve(JSON.parse(r.response))
+                    } else {
+                        reject(JSON.parse(r.response))
+                    }
+                }
+            }
+            r.send(fd)
+        })
+        return p
+    }
+    
 }
 
 export default Api

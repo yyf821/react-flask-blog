@@ -7,7 +7,7 @@ import config
 app = Flask(__name__,
             template_folder='templates',
             instance_relative_config=True)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app)
 app.config.from_pyfile('config.py')
 app.config.from_object('config')
 app.config['JSON_AS_ASCII'] = False

@@ -15,10 +15,10 @@ def extract_user(u):
         'email': u.email,
         'created': u.created,
     }
-    if u.about_me:
-        user['about_me'] = u.about_me
+    if u.avatar_url:
+        user['avatar_url'] = u.avatar_url
     else:
-        user['about_me'] = ''
+        user['avatar_url'] = ''
     return user
 
 
@@ -48,7 +48,7 @@ def upload():
             "error": 1001,
             "msg": "请检查上传的图片类型，仅限于png、PNG、jpg、JPG、bmp"
         })
-    basepath = os.path.dirname(__file__)  # 当前文件所在路径
+    basepath = os.path.dirname(os.path.dirname(__file__))  # 当前文件所在路径
     # 注意：没有的文件夹一定要先创建，不然会提示没有该路径
     filename = secure_filename(f.filename)
     upload_path = os.path.join(basepath, 'static/images', filename)

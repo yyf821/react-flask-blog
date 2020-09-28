@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Error from './Error'
 import HomeLayout from '../layouts/HomeLayout';
 import UserApi from '../api/user'
+import Avatar from './Avatar'
+import styles from './UserProfile.module.css';
 
 class PostDetail extends Component {
     constructor(props) {
@@ -35,7 +37,7 @@ class PostDetail extends Component {
 
     render() {
         const { isLoaded, user, error } = this.state;
-        const { username, email } = user
+        const { username, email, avatar_url } = user
         let content;
 
         if (error) {
@@ -44,6 +46,9 @@ class PostDetail extends Component {
             content = <div>Loading...</div>;
         } else {
             content = <div>
+                <div className={styles.box}>
+                    <img src={`http://localhost:5000${avatar_url}`} className={styles.cover} />
+                </div>
                 <h1>{username}</h1>
                 <p>{email}</p>
             </div>
@@ -53,6 +58,7 @@ class PostDetail extends Component {
                 <div className="site-layout-content">
                     {content}
                     {this.props.user}
+                    <Avatar />
                 </div>
             </HomeLayout>
 
