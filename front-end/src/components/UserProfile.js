@@ -47,7 +47,7 @@ class PostDetail extends Component {
         } else {
             content = <div>
                 <div className={styles.box}>
-                    <img src={`http://localhost:5000${avatar_url}`} className={styles.cover} />
+                    <img src={`http://localhost:5000${avatar_url}`} alt="avatar" className={styles.cover} />
                 </div>
                 <h1>{username}</h1>
                 <p>{email}</p>

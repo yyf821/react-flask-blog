@@ -16,8 +16,8 @@ class PostApi extends Api {
         return this.post(path, data)
     }
 
-    all() {
-        let path = '/article'
+    all(pageId) {
+        let path = '/article?page=' + String(pageId)
         return this.get(path)
     }
 
